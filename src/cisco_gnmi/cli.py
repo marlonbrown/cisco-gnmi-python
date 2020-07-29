@@ -194,6 +194,7 @@ def gnmi_subscribe():
             else:
                 with open(args.dump_file, "a") as dump_fd:
                     dump_fd.write(formatted_message)
+                    print("*** PRINTING ***")
                    
     except KeyboardInterrupt:
         logging.warning("Stopping on interrupt.")
