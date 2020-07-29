@@ -56,7 +56,7 @@ Version {version}
 
 Supported RPCs:
 {supported_rpcs}
-
+** QOS **
 cisco-gnmi capabilities 127.0.0.1:57500
 cisco-gnmi get 127.0.0.1:57500 -xpath /interfaces/interface/state/counters
 cisco-gnmi set 127.0.0.1:57500 -update_json_config newconfig.json
@@ -195,6 +195,7 @@ def gnmi_subscribe():
             else:
                 with open(args.dump_file, "a") as dump_fd:
                     dump_fd.write(formatted_message)
+                    print("*** PRINTING FILE ***")
     except KeyboardInterrupt:
         logging.warning("Stopping on interrupt.")
     except Exception:
