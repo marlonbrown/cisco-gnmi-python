@@ -182,6 +182,7 @@ def gnmi_subscribe():
             logging.debug("SubscribeResponse received.")
             if subscribe_response.sync_response:
                 logging.debug("sync_response received.")
+                print("****** SYNC *********")
                 if args.sync_stop:
                     logging.warning("Stopping on sync_response.")
                     break
