@@ -190,8 +190,17 @@ def gnmi_subscribe():
             if not synced and args.sync_start:
                 continue
             formatted_message = __format_message(subscribe_response)
+            #######################
+            # Include QoS code
+            #######################
+            cmap = "Skype-VOIP"
             if args.dump_file == "stdout":
-                logging.info(formatted_message)
+                #call QoS search function
+                gmni_qos(formatted_message, cmap)
+                #logging.info(formatted_message)
+               
+                break
+              
             else:
                 with open(args.dump_file, "a") as dump_fd:
                     dump_fd.write(formatted_message)
@@ -204,7 +213,17 @@ def gnmi_subscribe():
     except Exception:
         logging.exception("Stopping due to exception!")
 
-
+def gmmi_qos(content, cmap):
+    #Execute regex to capture relevant list+dicttionary data in gnmi output
+    regex = r'json_ietf_val\: (".+")'
+    r = []
+    for json_str in re.findall(regex, content):
+        data = json.loads(json.loads(json_str))
+        r.append(data)
+    #Print data to console
+    logging.info(data)
+    
+     
 def gnmi_get():
     """Provides Get RPC usage. Assumes JSON or JSON_IETF style configurations.
     """
